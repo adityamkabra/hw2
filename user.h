@@ -12,7 +12,6 @@ public:
     User();
     User(std::string name, double balance, int type);
     virtual ~User();
-
     double getBalance() const;
     std::string getName() const;
     void deductAmount(double amt);

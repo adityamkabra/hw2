@@ -5,6 +5,7 @@
 #include "clothing.h"
 #include "movie.h"
 #include "util.h"
+#include "product.h"
 using namespace std;
 
 
@@ -130,6 +131,9 @@ std::string ProductBookParser::categoryID()
  */
 Product* ProductBookParser::makeProduct()
 {
+  std::string typee = "book";
+  Product* book = new Book(typee, prodName_,price_, qty_, author_,isbn_);//dynamically allocating a book 
+  return book;
 
 
 }
@@ -177,17 +181,14 @@ std::string ProductClothingParser::categoryID()
 {
     return "clothing";
 }
-
-
 /**
  * Your job to fill in the code to create a new clothing product
  * using the data members in this class and the parent ProductParser class
  */
 Product* ProductClothingParser::makeProduct()
 {
-
-
-
+   Product* clothing = new Clothing("clothing", prodName_,price_, qty_,size_,brand_);//dynamically allocating a clothing
+   return clothing;
 }
 
 
@@ -230,7 +231,6 @@ Product* ProductMovieParser::parseSpecificProduct(std::string category,
         return NULL;
     }
     return makeProduct();
-
 }
 
 std::string ProductMovieParser::categoryID()
@@ -245,6 +245,6 @@ std::string ProductMovieParser::categoryID()
  */
 Product* ProductMovieParser::makeProduct()
 {
-
-
+   Product* movie = new Movie("movie", prodName_,price_, qty_,genre_,rating_);//dynamically allocating a movie
+   return movie;
 }

@@ -15,17 +15,45 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
+    std::set<std::string> retWords;//declaring a return word set
+    stringstream ss(rawWords);//declaring a string stream to read rawWords
+    string word;
+    while(ss>>word)
+    { 
+        if((word).find("-")!=std::string::npos)//checking if its an isbn
+        {
+          retWords.insert(word);
+          continue;
+        }
+        word=convToLower(word);
+        string word_actual = "";
+        for(int i=0; i<word.size();i++)
+        {
+            char c=word[i];
+            if(!ispunct(c))//checking if c is a punctuation
+            {
+                word_actual +=c;//adding c to word_actual
+            }
+            if(word_actual.length()>1&&!ispunct(c))//checking if the length matches the prerequisite for keyword if a punctuation is encountered
+            {
+                retWords.insert(convToLower(word_actual));//inseting keyword to set
+                word_actual="";
+                continue;
+            }
+            if(ispunct(c)||i==word.size()-1)
+            {
+              if(word_actual.length()>1)//checking if the length matches the prerequisite for keyword 
+              {
+                retWords.insert(convToLower(word_actual));//inserting keyword to set
+                word_actual.clear();
+                continue;
+              }
+            }
+          }
+      }
+  return retWords;
+  }
 
-
-
-
-
-
-
-
-
-
-}
 
 /**************************************************
  * COMPLETED - You may use the following functions
@@ -55,3 +83,4 @@ std::string &rtrim(std::string &s) {
 std::string &trim(std::string &s) {
     return ltrim(rtrim(s));
 }
+
